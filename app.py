@@ -1,6 +1,7 @@
 from flask import Flask, render_template, json, request, session, redirect, url_for
 from flaskext.mysql import MySQL
 import pygal
+from pygal.style import Style
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -16,7 +17,7 @@ with open('./static/json/taza_anual.json') as json_file_anual:
     i_anual_dict = json.load(json_file_anual)
 
 # taza de interés anual cobrada al cliente
-intereses = i_anual_dict['taza'] / 12
+intereses = i_anual_dict['taza']/100
 
 with open('./static/json/intereses.json') as json_file_mensual:
     i_mensual = json.load(json_file_mensual)
@@ -88,7 +89,7 @@ def validarLogin():
         data = cursor.fetchall()
  
         if len(data) > 0:
-            if str(data[0][3]) ==  _passForm:
+            if str(data[0][3]) == _passForm:
                 session['user'] = data[0][0]
                 return redirect('/principal')
             else:
@@ -164,9 +165,9 @@ def simular():
             # validate the received values
             if _imputValor and _inputMeses:
 
-                # calculo de la mensualidad: P (((1 + i)^n)*i) / (((1+i)^n)-1)      
-                _mensualidad = round(_imputValor * (((1 + (intereses/12) ) ** _inputMeses) * (intereses/12)) / (((1 + (intereses/12)) ** _inputMeses) -1), 2)            
-    
+                # calculo de la mensualidad: P * ((1 + i)^n) * i / ( ((1+i)^n) -1)      
+                _mensualidad = round(_imputValor * ((1 + (intereses/12) ) ** _inputMeses) * (intereses/12) / (((1 + (intereses/12)) ** _inputMeses) -1), 2)            
+
                 return render_template('simular.html', resTexto = 'Resultado = ' , resValor = _imputValor, resMeses = _inputMeses, resMensualidad = _mensualidad)
 
             else:
@@ -185,17 +186,21 @@ def buscarFinanc():
             cursor = con.cursor()
             cursor.callproc('getFin',(_user,))
             financs = cursor.fetchall()
- 
+           
             financs_dict = []
             for fin in financs:
-                financ_dict = {
+                _finTotal = '{:.2f}'.format(fin[1])
+                _finMesual = '{:.2f}'.format(fin[3])
+                _finRetraso = '{:.2f}'.format(fin[8])
+                financ_dict = {                        
                         'Id': fin[0],
-                        'Total': fin[1],
+                        'Total': _finTotal,
                         'meses': fin[2],
-                        'Mensualidad': fin[3],
+                        'Mensualidad': _finMesual,
                         'mesActual': fin[5],
                         'mesesRetraso': fin[7],
-                        'ImporteRetraso': fin[8]}
+                        'ImporteRetraso': _finRetraso
+                        }
                 financs_dict.append(financ_dict)
 
             return json.dumps(financs_dict)
@@ -250,20 +255,29 @@ def verInversiones():
 
             for i in range(0, mes_venc):
                 if _r_fija_value:
-                    _v_fija_corrig = _r_fija_value * (1 + i_fija[i])
-                    renta_fija.append(_v_fija_corrig)
+                    _r_fija_corrig = _r_fija_value * (1 + i_fija[i])
+                    _r_fija_value = _r_fija_corrig
+                    renta_fija.append(_r_fija_corrig)
                 if _r_var_value:
-                    _v_var_corrig = _r_var_value * (1 + i_var[i])
-                    renta_var.append(_v_var_corrig)
+                    _r_var_corrig = _r_var_value * (1 + i_var[i])
+                    _v_var_value = _r_var_corrig
+                    renta_var.append(_r_var_corrig)
                 if _r_mod_value:
-                    _v_mod_corrig = _r_mod_value * (1 + i_mod[i])
-                    renta_mod.append(_v_mod_corrig)
+                    _r_mod_corrig = _r_mod_value * (1 + i_mod[i])
+                    _r_mod_value = _r_mod_corrig
+                    renta_mod.append(_r_mod_corrig)
                 if _r_alto_value:
-                    _v_alto_corrig = _r_alto_value * (1 + i_alto[i])
-                    renta_alto.append(_v_alto_corrig)
+                    _r_alto_corrig = _r_alto_value * (1 + i_alto[i])
+                    _r_alto_value = _r_alto_corrig
+                    renta_alto.append(_r_alto_corrig)
 
             try:
-                graph = pygal.Line(interpolate='cubic')
+                estilo_grafico = Style(
+                    background='rgb(213, 204, 43)',
+                    plot_background='rgb(213, 204, 43)'
+                )
+
+                graph = pygal.Line(interpolate='cubic', style=estilo_grafico)
                 graph.title = 'Rendimiento Inversiones año ' + str(anno)
                 graph.x_labels = ['ene','feb','mar','abr','may','jun','jul','ago','sept','oct','nov','dic']
 
