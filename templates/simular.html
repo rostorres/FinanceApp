@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <title>Financiera Ahorro</title>
+  
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link href="../static/css/jumbotron-narrow.css" rel="stylesheet">
+    <link href="../static/css/general.css" rel="stylesheet">
+
+    <script src="../static/js/jquery-3.4.1.js"></script>
+    <script src="../static/js/simular.js"></script>
+ 
+</head>
+ 
+<body>
+ 
+    <div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link" href="/principal">Mis Préstamos</a></li>
+                    <li class="nav-item active"><a class="nav-link active" href="/verSimular">Simular Préstamo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/verInversiones">Mis Inversiones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/logout">Sair</a></li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Financiera Ahorro</h3>
+        </div>
+        <section>
+            <form class="form-horizontal" method="post" action="/simular">
+                <fieldset>
+ 
+                    <legend>Simule tu Préstamo</legend>
+ 
+                    <div class="form-group">
+                        <label class="col-md-6 control-label" for="valor">Valor</label>
+                        <div class="col-md-6">
+                            <input id="valor" name="inputValor" type="number" min=0.00 max=50000.00 step=0.01 placeholder="insira valor" value="{{ resValor }}" class="form-control input-md" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-6 control-label" for="meses">meses</label>
+                        <div class="col-md-6">
+                            <input id="meses" name="inputMeses" type="number" min=0 max=200 step=1 placeholder="insira ctde meses" value="{{ resMeses }}" class="form-control input-md" required>
+                        </div>
+                    </div>
+ 
+                    <div class="form-group">
+                        <label class="col-md-6 control-label" for="btnSimulate"></label>
+                        <div class="col-md-6">
+                            <input id="btnSimulate" name="btnSimulate" class="btn btn-primary" type="submit" value="Calcular Mensualidad" />
+                        </div>
+                    </div>
+
+                    {% if resTexto %}
+
+                        <div class="jumbotron central">
+                            <h3>{{resTexto}} {{resMensualidad}}</h3>
+                        </div>                    
+
+                        <div class="form-group">
+                            <label class="col-md-6 control-label" for="btnSolicitar"></label>
+                            <div class="col-md-6">
+                                <input id="btnSolicitar" name="btnSolicitar" class="btn btn-primary" type="submit" value="Solicitar evaluación de tu Prestimo a nuestros agentes" />
+                            </div>
+                        </div>
+
+                    {% endif %}
+ 
+                </fieldset>
+            </form> 
+        </section>
+
+        
+
+        <footer class="footer">
+            <p>Financiera - Calle Madrid - Madrid</p>
+        </footer>
+ 
+    </div>
+</body>
+ 
+</html>

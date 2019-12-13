@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Financiera Ahorro</title> 
+    
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link href="../static/css/jumbotron-narrow.css" rel="stylesheet">
+    <link href="../static/css/registro.css" rel="stylesheet">
+    <link href="../static/css/general.css" rel="stylesheet">
+
+    <script src="../static/js/jquery-3.4.1.js"></script>
+    <script src="../static/js/registro.js"></script>
+    
+  </head>
+ 
+  <body>
+ 
+    <div class="container">
+      <div class="header">
+        <nav>
+          <ul class="nav nav-pills">
+            <li class="nav-item" ><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item" ><a class="nav-link" href="verLogin">Entrar</a></li>
+            <li class="nav-item active" ><a class="nav-link active" href="verRegistro">Registrarse</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Financiera Ahorro</h3>
+      </div>
+ 
+      <div class="jumbotron central">
+        <h2>Financiera Ahorro</h2>
+        <form class="form-signin">
+        <label for="nombre" class="sr-only" action="/registro" method="post">Nombre</label>
+        <input type="name" name="nombre" id="nombre" class="form-control" placeholder="nombre" required>
+        <label for="email" class="sr-only">Correo Electronico</label>
+        <input type="email" name="email" id="email" class="form-control" placeholder="correo electronico" required>
+        <label for="clave" class="sr-only">Clave</label>
+        <input type="password" name="clave" id="clave" class="form-control" placeholder="clave" required>
+         
+        <button id="btnRegistro" class="btn btn-lg btn-primary btn-block" type="button">Registrarse</button>
+      </form>
+      </div>
+ 
+      <footer class="footer">
+        <p>Financiera - Calle Madrid - Madrid</p>
+      </footer>
+ 
+    </div>
+  </body>
+</html>
+
