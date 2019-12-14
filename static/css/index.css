@@ -1,0 +1,23 @@
+body {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: rgb(213, 204, 43);
+  }
+  .button-ini{
+    width: 30%;
+    margin-right: 40px;
+    margin-left: 40px;
+    margin-top: 20px;
+  }
+  .inline {
+    display:inline-block;
+  }
+  .imagen{
+      opacity: 0.65;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      width: 100%;
+  }

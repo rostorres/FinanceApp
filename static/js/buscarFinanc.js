@@ -32,7 +32,7 @@ $(function(){
 
             var title = '';
             title = $(div).clone();
-                $(title).find('span#a1').text('Valor Prestimo');
+                $(title).find('span#a1').text('Valor Prestamo');
                 $(title).find('span#a2').text('meses');
                 $(title).find('span#a3').text('Mensua- lidad');
                 $(title).find('span#a4').text('mes actual');
