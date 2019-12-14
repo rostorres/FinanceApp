@@ -3,6 +3,12 @@ body {
     padding-bottom: 40px;
     background-color: rgb(213, 204, 43);
   }
+  h3 {
+    text-align: left;
+  }
+  p {
+    text-align: left;
+  }
   .button-ini{
     width: 30%;
     margin-right: 40px;

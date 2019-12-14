@@ -1,7 +1,16 @@
 body {
     padding-top: 40px;
     padding-bottom: 40px;
-    background-color: rgb(213, 204, 43);
+    background-color: #d5cc2b;
+  }
+  .nav {
+    margin-bottom: 10px;
+  }
+  .nav-tabs {
+    background-color: #d5cc2b;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
   }
   .central{
     background-image: url('../image/background.png');
